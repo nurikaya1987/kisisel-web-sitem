@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nurullah Taş - Kişisel Web Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">Nurullah Taş</a>
+    <button
+      class="menu-toggle"
+      aria-label="Menüyü Aç/Kapat"
+      aria-expanded="false"
+      aria-controls="primary-menu"
+    >☰</button>
+
+    <ul id="primary-menu">
+      <li><a href="index.html" class="active">Anasayfa</a></li>
+      <li class="has-dropdown">
+        <a href="about.html">Hakkımda</a>
+        <ul class="dropdown">
+          <li><a href="about.html#team">Yazılım</a></li>
+          <li><a href="about.html#history">Akademi</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html">İletişim</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Hoş geldiniz!</h1>
+    <p>
+      Merhaba, ben <strong>Nurullah Taş</strong>. Kişisel web siteme hoş geldiniz! Burada projelerimi, tecrübelerimi ve iletişim bilgilerimi bulabilirsiniz. Yazılım ve akademi dünyasındaki yolculuğumu ve güncel çalışmalarımı sizlerle paylaşmayı amaçlıyorum.
+    </p>
+
+    <!-- Bölüm içi linkler -->
+    <nav class="in-page-nav">
+      <a href="#section1">Bölüm 1</a> |
+      <a href="#section2">Bölüm 2</a>
+    </nav>
+
+    <section id="section1">
+      <h2>Bölüm 1</h2>
+      <p>Bu, 1. bölümün içeriğidir. Smooth scroll testi için buradayız.</p>
+    </section>
+
+    <section id="section2">
+      <h2>Bölüm 2</h2>
+      <p>Bu da 2. bölümün içeriği. Yine smooth scroll test edilecek.</p>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.getElementById('primary-menu');
+      const links = menu.querySelectorAll('li a');
+
+      // Hamburger aç/kapat
+      toggle.addEventListener('click', function() {
+        menu.classList.toggle('show');
+        toggle.textContent = menu.classList.contains('show') ? '✖' : '☰';
+        toggle.setAttribute('aria-expanded', menu.classList.contains('show'));
+      });
+
+      // Sayfa içi in-page nav aktif link vurgulama
+      const sections = document.querySelectorAll('section[id]');
+      const inPageLinks = document.querySelectorAll('.in-page-nav a');
+      window.addEventListener('scroll', function() {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 120;
+          if (window.pageYOffset >= sectionTop) {
+            current = section.getAttribute('id');
+          }
+        });
+        inPageLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

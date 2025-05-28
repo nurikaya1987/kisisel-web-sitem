@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İletişim – Nurullah Taş</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google reCAPTCHA script -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">Nurullah Taş</a>
+    <button
+      class="menu-toggle"
+      aria-label="Menüyü Aç/Kapat"
+      aria-expanded="false"
+      aria-controls="primary-menu"
+    >☰</button>
+    <ul id="primary-menu">
+      <li><a href="index.html">Anasayfa</a></li>
+      <li class="has-dropdown">
+        <a href="about.html">Hakkımda</a>
+        <ul class="dropdown">
+          <li><a href="about.html#yazilim">Yazılım</a></li>
+          <li><a href="about.html#akademi">Akademi</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html" class="active">İletişim</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>İletişim</h1>
+    <p>Benimle ilgili bilgiler...</p>
+    <form id="contact-form"
+          action="https://formspree.io/f/xyzwrywn"
+          method="POST">
+      <label for="name">Adınız:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">E-posta:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="message">Mesajınız:</label><br>
+      <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+      <!-- reCAPTCHA widget -->
+      <div class="g-recaptcha" data-sitekey="6LcNh0srAAAAAC5qXswHX-VGoSw6RanndzS0fjf8"></div>
+      <br>
+      <button type="submit">Gönder</button>
+    </form>
+    <div id="form-status"></div>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Menu toggle
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.getElementById('primary-menu');
+      const links = menu.querySelectorAll('li a');
+      toggle.addEventListener('click', function() {
+        menu.classList.toggle('show');
+        toggle.textContent = menu.classList.contains('show') ? '✖' : '☰';
+        toggle.setAttribute('aria-expanded', menu.classList.contains('show'));
+      });
+      links.forEach(link => link.addEventListener('click', function() {
+        if (menu.classList.contains('show')) {
+          menu.classList.remove('show');
+          toggle.textContent = '☰';
+        }
+      }));
+      // Mobile dropdown
+      document.querySelectorAll('.has-dropdown > a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (window.innerWidth <= 600) {
+            e.preventDefault();
+            this.nextElementSibling.classList.toggle('show');
+          }
+        });
+      });
+      // Form submission with reCAPTCHA validation
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // reCAPTCHA response
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          status.textContent = 'Lütfen CAPTCHA kutusunu işaretleyin.';
+          status.style.color = 'red';
+          return;
+        }
+        const data = new FormData(form);
+        fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+          if (response.ok) {
+            status.textContent = 'Mesajınız başarıyla gönderildi! Teşekkürler.';
+            status.style.color = 'green';
+            form.reset();
+            grecaptcha.reset();
+          } else {
+            response.json().then(err => {
+              status.textContent = err.error || 'Gönderim sırasında bir hata oluştu.';
+              status.style.color = 'red';
+            });
+          }
+        })
+        .catch(() => {
+          status.textContent = 'Sunucuya ulaşılamıyor. Lütfen daha sonra tekrar deneyin.';
+          status.style.color = 'red';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

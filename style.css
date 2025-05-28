@@ -1,0 +1,164 @@
+/* Sayfa içi bağlantılarda yumuşak kaydırma */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+  margin-top: 100px;
+  padding-top: 50px; /* Sticky nav yüksekliği kadar */
+}
+
+/* --- Menü Stilleri --- */
+.site-nav {
+  background-color: #333;
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-nav .logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 20px;
+}
+.site-nav .logo:hover {
+  color: #ccc;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.site-nav li {
+  margin: 0 15px;
+}
+.site-nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+.site-nav a:hover {
+  background-color: #555;
+  border-radius: 4px;
+}
+.site-nav a.active {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+/* Hamburger butonu (mobilde görünür olacak) */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* --- Mobile Styles --- */
+@media (max-width: 600px) {
+  .menu-toggle {
+    display: block;
+  }
+  .site-nav ul {
+    flex-direction: column;
+    background-color: #333;
+    width: 100%;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  .site-nav ul.show {
+    max-height: none;
+    overflow: visible;
+  }
+  .site-nav li {
+    margin: 10px 0;
+  }
+  .site-nav .has-dropdown .dropdown {
+    position: static;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  .site-nav .has-dropdown .dropdown.show {
+    max-height: 800px;
+  }
+}
+
+/* --- Desktop Dropdown Hover --- */
+@media (min-width: 601px) {
+  .site-nav .has-dropdown {
+    position: relative;
+  }
+  .site-nav .has-dropdown .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 160px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  .site-nav .has-dropdown:hover .dropdown {
+    display: block;
+  }
+  .site-nav .has-dropdown .dropdown li a {
+    display: block;
+    padding: 10px 16px;
+    color: #fff;
+    text-decoration: none;
+  }
+  .site-nav .has-dropdown .dropdown li a:hover {
+    background-color: #555;
+  }
+}
+
+/* İn-page nav stili */
+.in-page-nav {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+.in-page-nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+.in-page-nav a:hover,
+.in-page-nav a.active {
+  color: #007acc;
+}
+
+/* Bölümler arası boşluk */
+section {
+  margin: 100px 20px;
+}

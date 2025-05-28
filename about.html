@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakkımda – Nurullah Taş</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">Nurullah Taş</a>
+    <button
+      class="menu-toggle"
+      aria-label="Menüyü Aç/Kapat"
+      aria-expanded="false"
+      aria-controls="primary-menu"
+    >☰</button>
+
+    <ul id="primary-menu">
+      <li><a href="index.html">Anasayfa</a></li>
+      <li class="has-dropdown">
+        <a href="about.html" class="active">Hakkımda</a>
+        <ul class="dropdown">
+          <li><a href="about.html#yazilim">Yazılım</a></li>
+          <li><a href="about.html#akademi">Akademi</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html">İletişim</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Hakkımda</h1>
+    <p>Benimle ilgili detaylı bilgilere aşağıdan ulaşabilirsiniz.</p>
+
+    <section id="yazilim">
+      <h2>Yazılım</h2>
+      <p>
+        Yazılım geliştirmede uzmanlaştığım alanlar arasında frontend (HTML, CSS, JavaScript), backend (Node.js, Python, PHP) ve mobil uygulama geliştirme (Flutter, Dart) yer alıyor. Açık kaynak projelerde ve ekip çalışmalarında aktif rol alıyorum.
+      </p>
+    </section>
+
+    <section id="akademi">
+      <h2>Akademi</h2>
+      <p>
+        Akademik alanda yaptığım çalışmalar; eğitim teknolojileri, yapay zeka uygulamaları ve öğrenme analitiği konularında makaleler ve kitap bölümleri yayınlamak şeklinde ilerliyor. Halen doktora çalışmalarımı devam ettiriyorum.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.getElementById('primary-menu');
+      const links = menu.querySelectorAll('li a');
+
+      // Hamburger aç/kapat
+      toggle.addEventListener('click', function() {
+        menu.classList.toggle('show');
+        toggle.textContent = menu.classList.contains('show') ? '✖' : '☰';
+        toggle.setAttribute('aria-expanded', menu.classList.contains('show'));
+      });
+
+      // Her bağlantıya tıklandığında menüyü kapat
+      links.forEach(link => {
+        link.addEventListener('click', function() {
+          if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+            toggle.textContent = '☰';
+          }
+        });
+      });
+
+      // Mobilde dropdown tıklamayla aç/kapat
+      const dropdownToggles = document.querySelectorAll('.has-dropdown > a');
+      dropdownToggles.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (window.innerWidth <= 600) {
+            e.preventDefault();
+            this.nextElementSibling.classList.toggle('show');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
