@@ -70,6 +70,36 @@ body {
   margin-right: 20px;
 }
 
+/* --- İn-page nav stili --- */
+.in-page-nav {
+  position: fixed;
+  top: 60px;             /* Masaüstünde menünün hemen altı */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 999;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 90vw;
+  min-width: 0;
+}
+.in-page-nav a {
+  margin: 0 4px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 1.1rem;
+}
+.in-page-nav a:hover,
+.in-page-nav a.active {
+  color: #007acc;
+}
+
 /* --- Mobile Styles --- */
 @media (max-width: 600px) {
   .menu-toggle {
@@ -99,6 +129,15 @@ body {
   }
   .site-nav .has-dropdown .dropdown.show {
     max-height: 800px;
+  }
+
+  .in-page-nav {
+    top: 80px;        /* Mobilde menü daha yüksek, arttırıldı */
+    padding: 6px 8px;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 98vw;
   }
 }
 
@@ -133,29 +172,6 @@ body {
   .site-nav .has-dropdown .dropdown li a:hover {
     background-color: #555;
   }
-}
-
-/* İn-page nav stili */
-.in-page-nav {
-  position: fixed;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #fff;
-  padding: 8px 16px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  z-index: 999;
-}
-.in-page-nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-.in-page-nav a:hover,
-.in-page-nav a.active {
-  color: #007acc;
 }
 
 /* Bölümler arası boşluk */
